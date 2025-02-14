@@ -15,23 +15,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Show the first confirmation modal on "Yes!" click
     yesButton.addEventListener('click', function() {
-        sureModal.style.display = 'flex'; // Show the "Are you sure?" modal
+        sureModal.style.display = 'flex';
     });
 
-    // Handle the "Yes" click for the first modal
+    // Handle "Yes" click for the first modal
     sureYesButton.addEventListener('click', function() {
-        sureModal.style.display = 'none'; // Hide the "Are you sure?" modal
-        pukkaModal.style.display = 'flex'; // Show the "Pukka soch le?" modal
+        sureModal.style.display = 'none';
+        pukkaModal.style.display = 'flex';
     });
 
-    // Handle the "No" click for the first modal
+    // Handle "No" click for the first modal
     sureNoButton.addEventListener('click', function() {
-        sureModal.style.display = 'none'; // Hide the modal if the user clicks "No"
+        sureModal.style.display = 'none';
     });
 
-    // Handle the "Yes" click for the second modal
+    // Handle "Yes" click for the second modal
     pukkaYesButton.addEventListener('click', function() {
-        pukkaModal.style.display = 'none'; // Hide the "Pukka soch le?" modal
+        pukkaModal.style.display = 'none';
         container.innerHTML = `
             <h1>Yay! I love you too! ❤️ <br></h1>
             <h3>I’ll always be the pineapple to your heart, sweet and a little bit unexpected, but perfectly meant to be. 🍍💖</h3>
@@ -46,12 +46,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
 
-    // Handle the "No" click for the second modal
+    // Handle "No" click for the second modal
     pukkaNoButton.addEventListener('click', function() {
-        pukkaModal.style.display = 'none'; // Hide the "Pukka soch le?" modal
+        pukkaModal.style.display = 'none';
     });
 
-    noButton.addEventListener('mouseover', function() {
+    // Handle "No" button moving (Only on Desktop)
+    function moveNoButton() {
         const containerRect = container.getBoundingClientRect();
         const buttonRect = noButton.getBoundingClientRect();
 
@@ -64,12 +65,20 @@ document.addEventListener('DOMContentLoaded', function() {
         noButton.style.position = 'absolute';
         noButton.style.left = randomX + 'px';
         noButton.style.top = randomY + 'px';
-    });
+    }
 
-    noButton.addEventListener('click', function() {
-        alert('Please say yes! 🥺');
-    });
+    // Detect if the user is on mobile
+    function isMobile() {
+        return /Mobi|Android/i.test(navigator.userAgent);
+    }
 
+    if (!isMobile()) {
+        noButton.addEventListener('mouseover', moveNoButton);
+    } else {
+        noButton.addEventListener('click', function() {
+            alert('Please say yes! 🥺');
+        });
+    }
 
     // Attempt to play the audio after user clicks "Yes"
     yesButton.addEventListener('click', function() {
@@ -81,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
     backgroundMusic.addEventListener('error', function(error) {
         console.error("Error loading audio:", error);
     });
+
     sureNoButton.addEventListener('click', function() {
         alert('Please say yes! 🥺');
     });
