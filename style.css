@@ -39,6 +39,9 @@ h3 {
     margin-bottom: 20px;
 }
 
+.message{
+    color: black;
+}
 /* Button Styling */
 .buttons {
     display: flex;
